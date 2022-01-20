@@ -1,0 +1,45 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "resources": [
+        {
+            "name": "MyResource-Group",
+            "type": "Microsoft.Network/virtualNetworks",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2015-06-15",
+            "dependsOn": [],
+            "tags": {
+                "displayName": "MyResource-Group"
+            },
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[variables('MyResource-GroupPrefix')]"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[variables('MyResource-GroupSubnet1Name')]",
+                        "properties": {
+                            "addressPrefix": "[variables('MyResource-GroupSubnet1Prefix')]"
+                        }
+                    },
+                    {
+                        "name": "[variables('MyResource-GroupSubnet2Name')]",
+                        "properties": {
+                            "addressPrefix": "[variables('MyResource-GroupSubnet2Prefix')]"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "variables": {
+        "MyResource-GroupPrefix": "10.0.0.0/16",
+        "MyResource-GroupSubnet1Name": "Subnet-1",
+        "MyResource-GroupSubnet1Prefix": "10.0.0.0/24",
+        "MyResource-GroupSubnet2Name": "Subnet-2",
+        "MyResource-GroupSubnet2Prefix": "10.0.1.0/24"
+    }
+}
